@@ -1,23 +1,25 @@
-import { Button, Radio } from 'antd';
 import './App.css';
+import { useState, useEffect } from "react";
 import { getAllStudents } from "./Client";
 
 function App() {
-    getAllStudents()
-        .then(res => res.json())
-        .then(console.log);
+    const [students, setStudents] = useState([]);
 
-  return (
-    <div className="App">
-      <Button type='primary'>Hello</Button>
-        <br/>
-        <Radio.Group value="large">
-            <Radio.Button value="larger">Large</Radio.Button>
-            <Radio.Button value="default">Default</Radio.Button>
-            <Radio.Button value="small">Small</Radio.Button>
-        </Radio.Group>
-    </div>
-  );
+    const fetchStudents = () =>
+        getAllStudents()
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setStudents(data);
+            });
+
+    useEffect(() => {
+        console.log("component is mounted")
+        fetchStudents();
+    }, [])
+
+
+    return <p>{students.length}</p>;
 }
 
 export default App;
