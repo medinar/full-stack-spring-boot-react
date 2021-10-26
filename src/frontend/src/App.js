@@ -1,7 +1,7 @@
 import './App.css';
 import {useState, useEffect} from "react";
 import {getAllStudents} from "./Client";
-import {Layout, Menu, Breadcrumb, Table} from 'antd';
+import {Layout, Menu, Breadcrumb, Table, Empty, Spin} from 'antd';
 import {
     DesktopOutlined,
     PieChartOutlined,
@@ -9,6 +9,7 @@ import {
     TeamOutlined,
     UserOutlined,
 } from '@ant-design/icons';
+import LoadingOutlined from "@ant-design/icons/lib/icons/LoadingOutlined";
 
 const {Header, Content, Footer, Sider} = Layout;
 const {SubMenu} = Menu;
@@ -35,15 +36,20 @@ const columns = [
     },
 ];
 
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
+
 function App() {
     const [students, setStudents] = useState([]);
     const [collapsed, setCollapsed] = useState(false);
+    const [fetching, setFetching] = useState(true);
+
     const fetchStudents = () =>
         getAllStudents()
             .then(res => res.json())
             .then(data => {
                 console.log(data);
                 setStudents(data);
+                setFetching(false);
             });
 
     useEffect(() => {
@@ -52,10 +58,21 @@ function App() {
     }, [])
 
     const renderStudents = () => {
-        if (students.length <= 0) {
-            return "no data available";
+        if (fetching) {
+            return <Spin indicator={antIcon} />;
         }
-        return <Table dataSource={students} columns={columns} />;
+        if (students.length <= 0) {
+            return <Empty />;
+        }
+        return <Table
+            dataSource={students}
+            columns={columns}
+            bordered
+            title={() => "Students"}
+            pagination={{ pageSize: 50 }}
+            scroll={{ y: 240 }}
+            rowKey={(student) => student.id}
+        />;
     }
     return <Layout style={{minHeight: '100vh'}}>
         <Sider collapsible collapsed={collapsed}
@@ -93,7 +110,7 @@ function App() {
                     {renderStudents()}
                 </div>
             </Content>
-            <Footer style={{textAlign: 'center'}}>Ant Design ©2018 Created by Ant UED</Footer>
+            <Footer style={{textAlign: 'center'}}>©2021 medinar&gt;_</Footer>
         </Layout>
     </Layout>;
 }
