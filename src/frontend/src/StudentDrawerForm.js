@@ -2,6 +2,7 @@ import {Drawer, Input, Col, Select, Form, Row, Button, Spin} from 'antd';
 import {addNewStudent} from "./Client";
 import {useState} from "react";
 import LoadingOutlined from "@ant-design/icons/lib/icons/LoadingOutlined";
+import { successNotification } from "./Notification";
 
 const {Option} = Select;
 const antIcon = <LoadingOutlined style={{fontSize: 24}} spin/>;
@@ -17,6 +18,10 @@ function StudentDrawerForm({showDrawer, setShowDrawer, fetchStudents}) {
             .then(() => {
                 console.log("Student added")
                 onCLose();
+                successNotification(
+                    "Student successfully added",
+                    `${student.name} was successfully added to the system`
+                )
                 fetchStudents();
             })
             .catch(err => {

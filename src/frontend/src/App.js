@@ -126,7 +126,7 @@ function App() {
                     {renderStudents()}
                 </div>
             </Content>
-            <Footer style={{textAlign: 'center'}}>©2021 medinar<CodeOutlined/></Footer>
+            <Footer style={{textAlign: 'center'}}>©2021 <strong>medinar <CodeOutlined/></strong></Footer>
         </Layout>
     </Layout>;
 }
