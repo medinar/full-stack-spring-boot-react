@@ -130,7 +130,19 @@ function App() {
             return <Spin indicator={antIcon}/>;
         }
         if (students.length <= 0) {
-            return <Empty/>;
+            return <>
+                <Button
+                    onClick={() => setShowDrawer(!showDrawer)}
+                    type="primary" shape="round" icon={<PlusCircleOutlined/>} size="small">
+                    Add New Student
+                </Button>
+                <StudentDrawerForm
+                    showDrawer={showDrawer}
+                    setShowDrawer={setShowDrawer}
+                    fetchStudents={fetchStudents}
+                />
+                <Empty/>
+            </>
         }
         return <>
             <StudentDrawerForm
@@ -145,7 +157,7 @@ function App() {
                 title={() =>
                     <>
                         <Tag style={{marginLeft: "10px"}}>Number of students</Tag>
-                        <Badge count={students.length} className="site-badge-count-4"/>
+                        <Badge count={students.length} className="site-badge-count-4" />
                         <br/><br/>
                         <Button
                             onClick={() => setShowDrawer(!showDrawer)}
