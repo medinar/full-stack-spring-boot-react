@@ -1,5 +1,6 @@
 package com.medinar.fullstackspringbootreact.student;
 
+import com.medinar.fullstackspringbootreact.student.exception.BadRequestException;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +29,7 @@ public class StudentController {
     }
 
     @PostMapping
-    public void addStudent(@RequestBody Student student) {
+    public void addStudent(@RequestBody Student student) throws BadRequestException {
         studentService.addStudent(student);
     }
 

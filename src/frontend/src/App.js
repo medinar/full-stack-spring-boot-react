@@ -37,6 +37,18 @@ const removeStudent = (studentId, callback) => {
         successNotification("Student deleted", `Student with student id ${studentId} has been deleted`)
         callback();
     })
+        .catch(err => {
+            err.response.json().then(res => {
+                console.log(res);
+                err.response.json().then(res => {
+                    console.log(res);
+                    errorNotification(
+                        "There was an issue",
+                        `${res.message} [statusCode: ${res.status}] [${res.error}]`
+                    );
+                });
+            })
+        })
 }
 const columns = fetchStudents => [
     {
@@ -67,19 +79,18 @@ const columns = fetchStudents => [
     },
     {
         title: 'Actions',
-        dataIndex: 'actions',
         key: 'actions',
         render: (text, student) =>
             <Radio.Group>
                 <Popconfirm
-                    placement="topRight"
-                    title={`Are you sure you want to delete ${student.name}`}
+                    placement='topRight'
+                    title={`Are you sure to delete ${student.name}`}
                     onConfirm={() => removeStudent(student.id, fetchStudents)}
                     okText='Yes'
                     cancelText='No'>
                     <Radio.Button value="delete">Delete</Radio.Button>
                 </Popconfirm>
-                <Radio.Button value="edit">Edit</Radio.Button>
+                <Radio.Button onClick={() => alert("TODO: Implement edit student")} value="edit">Edit</Radio.Button>
             </Radio.Group>
     }
 ];
@@ -98,24 +109,21 @@ function App() {
             .then(data => {
                 console.log(data);
                 setStudents(data);
-                setFetching(false);
-            })
-            .catch(err => {
-                console.log(err.response)
-                err.response.json().then(res => {
-                    console.log(res);
-                    errorNotification(
-                        "There was an issue",
-                        `${res.message} [statusCode: ${res.status}] [${res.error}]`
-                    );
-                });
-            })
-            .finally(() => setFetching(false));
+            }).catch(err => {
+            console.log(err.response)
+            err.response.json().then(res => {
+                console.log(res);
+                errorNotification(
+                    "There was an issue",
+                    `${res.message} [${res.status}] [${res.error}]`
+                )
+            });
+        }).finally(() => setFetching(false))
 
     useEffect(() => {
-        console.log("component is mounted")
+        console.log("component is mounted");
         fetchStudents();
-    }, [])
+    }, []);
 
     const renderStudents = () => {
         if (fetching) {

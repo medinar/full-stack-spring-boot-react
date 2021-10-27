@@ -1,10 +1,11 @@
 import {Drawer, Input, Col, Select, Form, Row, Button, Spin} from 'antd';
 import {addNewStudent} from "./Client";
-import {useState} from "react";
-import LoadingOutlined from "@ant-design/icons/lib/icons/LoadingOutlined";
-import { successNotification } from "./Notification";
+import {LoadingOutlined} from "@ant-design/icons";
+import {useState} from 'react';
+import {successNotification, errorNotification} from "./Notification";
 
 const {Option} = Select;
+
 const antIcon = <LoadingOutlined style={{fontSize: 24}} spin/>;
 
 function StudentDrawerForm({showDrawer, setShowDrawer, fetchStudents}) {
@@ -16,20 +17,26 @@ function StudentDrawerForm({showDrawer, setShowDrawer, fetchStudents}) {
         console.log(JSON.stringify(student, null, 2))
         addNewStudent(student)
             .then(() => {
-                console.log("Student added")
+                console.log("student added")
                 onCLose();
                 successNotification(
                     "Student successfully added",
-                    `${student.name} was successfully added to the system`
+                    `${student.name} was added to the system`
                 )
                 fetchStudents();
-            })
-            .catch(err => {
-                console.log(err)
-            })
-            .finally(() => {
-                setSubmitting(false)
-            })
+            }).catch(err => {
+            console.log(err);
+            err.response.json().then(res => {
+                console.log(res);
+                errorNotification(
+                    "There was an issue",
+                    `${res.message} [${res.status}] [${res.error}]`,
+                    "bottomLeft"
+                )
+            });
+        }).finally(() => {
+            setSubmitting(false);
+        })
     };
 
     const onFinishFailed = errorInfo => {
@@ -103,7 +110,7 @@ function StudentDrawerForm({showDrawer, setShowDrawer, fetchStudents}) {
                 </Col>
             </Row>
             <Row>
-                {submitting && <Spin indicator={antIcon} />}
+                {submitting && <Spin indicator={antIcon}/>}
             </Row>
         </Form>
     </Drawer>
