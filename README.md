@@ -11,6 +11,17 @@ docker run --rm -p 8080:8080 medinar/fullstack-spring-boot-react
 ## Running the database instance of postgres using docker command
 
 ```shell
+❯ docker run -it --rm --network=db postgres:alpine psql -h db -U postgres
+Password for user postgres: ********
+psql (14.0)
+Type "help" for help.
+
+postgres=#
+```
+
+
+
+```shell
 docker run -it --rm --rm postgres:alpine psql -h aa7owmyzt7q7ch.corewigv46z6.ca-central-1.rds.amazonaws.com -U medinar -d postgres
 ```
 
@@ -37,4 +48,23 @@ medinardb=>
 ```
 
 
+
+```shell
+docker loginAuthenticating with existing credentials...
+Login Succeeded	
+```
+
+
+
+Mac
+
+```shell
+./mvnw clean install -P build-frontend -P jib-push-to-dockerhub -Dapp.image.tag=3
+```
+
+Windows
+
+```shell
+mvnw clean install -P build-frontend -P jib-push-to-dockerhub -Dapp.image.tag=3
+```
 
