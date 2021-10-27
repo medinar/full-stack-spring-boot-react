@@ -1,15 +1,18 @@
 import './App.css';
 import {useState, useEffect} from "react";
 import {getAllStudents} from "./Client";
-import {Layout, Menu, Breadcrumb, Table, Empty, Spin} from 'antd';
+import {Layout, Menu, Breadcrumb, Table, Empty, Spin, Button} from 'antd';
 import {
     DesktopOutlined,
     PieChartOutlined,
     FileOutlined,
     TeamOutlined,
     UserOutlined,
+    PlusOutlined,
+    CodeOutlined
 } from '@ant-design/icons';
 import LoadingOutlined from "@ant-design/icons/lib/icons/LoadingOutlined";
+import PlusCircleOutlined from "@ant-design/icons/lib/icons/PlusCircleOutlined";
 
 const {Header, Content, Footer, Sider} = Layout;
 const {SubMenu} = Menu;
@@ -68,7 +71,9 @@ function App() {
             dataSource={students}
             columns={columns}
             bordered
-            title={() => "Students"}
+            title={() => <Button type="primary" shape="round" icon={<PlusCircleOutlined />} size="small">
+                Add New Student
+            </Button>}
             pagination={{ pageSize: 50 }}
             scroll={{ y: 500 }}
             rowKey={(student) => student.id}
@@ -110,7 +115,7 @@ function App() {
                     {renderStudents()}
                 </div>
             </Content>
-            <Footer style={{textAlign: 'center'}}>©2021 medinar&gt;_</Footer>
+            <Footer style={{textAlign: 'center'}}>©2021 medinar<CodeOutlined /></Footer>
         </Layout>
     </Layout>;
 }
