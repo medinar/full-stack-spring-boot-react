@@ -1,19 +1,19 @@
 import './App.css';
-import {useState, useEffect} from "react";
+import {useEffect, useState} from "react";
 import {deleteStudent, getAllStudents} from "./Client";
-import {Layout, Menu, Breadcrumb, Table, Empty, Spin, Button, Tag, Badge, Avatar, Radio, Popconfirm} from 'antd';
+import {Avatar, Badge, Breadcrumb, Button, Empty, Layout, Menu, Popconfirm, Radio, Spin, Table, Tag} from 'antd';
 import {
-    DesktopOutlined,
-    PieChartOutlined,
-    FileOutlined,
-    TeamOutlined,
-    UserOutlined,
-    PlusCircleOutlined,
     CodeOutlined,
-    LoadingOutlined
+    DesktopOutlined,
+    FileOutlined,
+    LoadingOutlined,
+    PieChartOutlined,
+    PlusCircleOutlined,
+    TeamOutlined,
+    UserOutlined
 } from '@ant-design/icons';
 import StudentDrawerForm from "./StudentDrawerForm";
-import {successNotification} from "./Notification";
+import {errorNotification, successNotification} from "./Notification";
 
 const {Header, Content, Footer, Sider} = Layout;
 const {SubMenu} = Menu;
@@ -99,7 +99,18 @@ function App() {
                 console.log(data);
                 setStudents(data);
                 setFetching(false);
-            });
+            })
+            .catch(err => {
+                console.log(err.response)
+                err.response.json().then(res => {
+                    console.log(res);
+                    errorNotification(
+                        "There was an issue",
+                        `${res.message} [statusCode: ${res.status}] [${res.error}]`
+                    );
+                });
+            })
+            .finally(() => setFetching(false));
 
     useEffect(() => {
         console.log("component is mounted")
