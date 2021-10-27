@@ -1,7 +1,7 @@
 import './App.css';
 import {useState, useEffect} from "react";
-import {getAllStudents} from "./Client";
-import {Layout, Menu, Breadcrumb, Table, Empty, Spin, Button, Tag, Badge, Avatar} from 'antd';
+import {deleteStudent, getAllStudents} from "./Client";
+import {Layout, Menu, Breadcrumb, Table, Empty, Spin, Button, Tag, Badge, Avatar, Radio, Popconfirm} from 'antd';
 import {
     DesktopOutlined,
     PieChartOutlined,
@@ -13,6 +13,7 @@ import {
     LoadingOutlined
 } from '@ant-design/icons';
 import StudentDrawerForm from "./StudentDrawerForm";
+import {successNotification} from "./Notification";
 
 const {Header, Content, Footer, Sider} = Layout;
 const {SubMenu} = Menu;
@@ -20,17 +21,24 @@ const {SubMenu} = Menu;
 const TheAvatar = ({name}) => {
     let trim = name.trim();
     if (trim.length === 0) {
-        return <Avatar icon={<UserOutlined />} />
+        return <Avatar icon={<UserOutlined/>}/>
     }
     const split = trim.split(" ");
     if (split.length === 1) {
         return <Avatar>{name.charAt(0)}</Avatar>
     }
     return <Avatar>
-        {`${name.charAt(0)}${name.charAt(name.length-1)}`}
+        {`${name.charAt(0)}${name.charAt(name.length - 1)}`}
     </Avatar>
 }
-const columns = [
+
+const removeStudent = (studentId, callback) => {
+    deleteStudent(studentId).then(() => {
+        successNotification("Student deleted", `Student with student id ${studentId} has been deleted`)
+        callback();
+    })
+}
+const columns = fetchStudents => [
     {
         title: '',
         dataIndex: 'avatar',
@@ -57,6 +65,23 @@ const columns = [
         dataIndex: 'gender',
         key: 'gender',
     },
+    {
+        title: 'Actions',
+        dataIndex: 'actions',
+        key: 'actions',
+        render: (text, student) =>
+            <Radio.Group>
+                <Popconfirm
+                    placement="topRight"
+                    title={`Are you sure you want to delete ${student.name}`}
+                    onConfirm={() => removeStudent(student.id, fetchStudents)}
+                    okText='Yes'
+                    cancelText='No'>
+                    <Radio.Button value="delete">Delete</Radio.Button>
+                </Popconfirm>
+                <Radio.Button value="edit">Edit</Radio.Button>
+            </Radio.Group>
+    }
 ];
 
 const antIcon = <LoadingOutlined style={{fontSize: 24}} spin/>
@@ -96,7 +121,7 @@ function App() {
             />
             <Table
                 dataSource={students}
-                columns={columns}
+                columns={columns(fetchStudents)}
                 bordered
                 title={() =>
                     <>
