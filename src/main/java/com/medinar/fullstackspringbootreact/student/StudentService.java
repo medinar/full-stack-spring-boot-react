@@ -23,4 +23,13 @@ public class StudentService {
         // check if student exist
         studentRepository.deleteById(studentId);
     }
+
+    public Student getStudentById(Long studentId) {
+        // check if student exist
+        return studentRepository.getById(studentId);
+    }
+
+    public void updateStudent(Student student) {
+        studentRepository.save(student);
+    }
 }
