@@ -8,11 +8,11 @@ import {
     FileOutlined,
     TeamOutlined,
     UserOutlined,
-    PlusOutlined,
-    CodeOutlined
+    PlusCircleOutlined,
+    CodeOutlined,
+    LoadingOutlined
 } from '@ant-design/icons';
-import LoadingOutlined from "@ant-design/icons/lib/icons/LoadingOutlined";
-import PlusCircleOutlined from "@ant-design/icons/lib/icons/PlusCircleOutlined";
+import StudentDrawerForm from "./StudentDrawerForm";
 
 const {Header, Content, Footer, Sider} = Layout;
 const {SubMenu} = Menu;
@@ -39,12 +39,13 @@ const columns = [
     },
 ];
 
-const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
+const antIcon = <LoadingOutlined style={{fontSize: 24}} spin/>
 
 function App() {
     const [students, setStudents] = useState([]);
     const [collapsed, setCollapsed] = useState(false);
     const [fetching, setFetching] = useState(true);
+    const [showDrawer, setShowDrawer] = useState(false);
 
     const fetchStudents = () =>
         getAllStudents()
@@ -62,22 +63,31 @@ function App() {
 
     const renderStudents = () => {
         if (fetching) {
-            return <Spin indicator={antIcon} />;
+            return <Spin indicator={antIcon}/>;
         }
         if (students.length <= 0) {
-            return <Empty />;
+            return <Empty/>;
         }
-        return <Table
-            dataSource={students}
-            columns={columns}
-            bordered
-            title={() => <Button type="primary" shape="round" icon={<PlusCircleOutlined />} size="small">
-                Add New Student
-            </Button>}
-            pagination={{ pageSize: 50 }}
-            scroll={{ y: 500 }}
-            rowKey={(student) => student.id}
-        />;
+        return <>
+            <StudentDrawerForm
+                showDrawer={showDrawer}
+                setShowDrawer={setShowDrawer}
+            />
+            <Table
+                dataSource={students}
+                columns={columns}
+                bordered
+                title={() =>
+                    <Button
+                        onClick={() => setShowDrawer(!showDrawer)}
+                        type="primary" shape="round" icon={<PlusCircleOutlined/>} size="small">
+                        Add New Student
+                    </Button>}
+                pagination={{pageSize: 50}}
+                scroll={{y: 500}}
+                rowKey={(student) => student.id}
+            />;
+        </>
     }
     return <Layout style={{minHeight: '100vh'}}>
         <Sider collapsible collapsed={collapsed}
@@ -115,7 +125,7 @@ function App() {
                     {renderStudents()}
                 </div>
             </Content>
-            <Footer style={{textAlign: 'center'}}>©2021 medinar<CodeOutlined /></Footer>
+            <Footer style={{textAlign: 'center'}}>©2021 medinar<CodeOutlined/></Footer>
         </Layout>
     </Layout>;
 }
