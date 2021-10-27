@@ -1,9 +1,11 @@
 import './App.css';
 import {useEffect, useState} from "react";
 import {deleteStudent, getAllStudents} from "./Client";
-import {Avatar, Badge, Breadcrumb, Button, Empty, Layout, Menu, Popconfirm, Radio, Spin, Table, Tag} from 'antd';
+import {Avatar, Badge, Breadcrumb, Button, Empty, Layout, Menu, Popconfirm, Radio, Spin, Table, Tag, Image} from 'antd';
 import {
     CodeOutlined,
+    CodeTwoTone,
+    CodeFilled,
     DesktopOutlined,
     FileOutlined,
     LoadingOutlined,
@@ -208,7 +210,9 @@ function App() {
                     {renderStudents()}
                 </div>
             </Content>
-            <Footer style={{textAlign: 'center'}}>©2021 <strong>medinar <CodeOutlined/></strong></Footer>
+            <Footer style={{textAlign: 'center'}}>
+                <strong>by medinar <CodeTwoTone spin={true}/></strong> ©2021
+            </Footer>
         </Layout>
     </Layout>;
 }
