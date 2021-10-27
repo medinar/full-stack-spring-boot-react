@@ -1,12 +1,19 @@
 import {Drawer, Input, Col, Select, Form, Row, Button} from 'antd';
+import {addNewStudent} from "./Client";
 
 const {Option} = Select;
 
 function StudentDrawerForm({showDrawer, setShowDrawer}) {
     const onCLose = () => setShowDrawer(false);
 
-    const onFinish = values => {
-        alert(JSON.stringify(values, null, 2));
+    const onFinish = student => {
+        console.log(JSON.stringify(student, null, 2))
+        addNewStudent(student)
+            .then(() => {
+                console.log("Student added")
+            }).catch(err => {
+            console.log(err)
+        })
     };
 
     const onFinishFailed = errorInfo => {
@@ -72,7 +79,7 @@ function StudentDrawerForm({showDrawer, setShowDrawer}) {
             </Row>
             <Row>
                 <Col span={12}>
-                    <Form.Item >
+                    <Form.Item>
                         <Button type="primary" htmlType="submit">
                             Submit
                         </Button>
