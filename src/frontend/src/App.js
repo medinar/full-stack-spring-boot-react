@@ -229,14 +229,14 @@ function App() {
                 <Divider />
                 <a
                     href="https://www.linkedin.com/in/rommel-medina-17bb9b30/"> <LinkedinOutlined
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     target="_blank"
                     style={{ fontSize: '24px', marginwidth: '10px',color: '#000' }}/>
                 </a>
                 <a
                     href="https://github.com/medinar"> <GithubOutlined
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     style={{ fontSize: '24px', color: '#000' }}/>
                 </a>
             </Footer>
