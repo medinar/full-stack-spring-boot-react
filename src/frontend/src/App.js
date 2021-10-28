@@ -1,11 +1,9 @@
 import './App.css';
 import {useEffect, useState} from "react";
 import {deleteStudent, getAllStudents} from "./Client";
-import {Avatar, Badge, Breadcrumb, Button, Empty, Layout, Menu, Popconfirm, Radio, Spin, Table, Tag, Image} from 'antd';
+import {Avatar, Badge, Breadcrumb, Button, Empty, Layout, Menu, Popconfirm, Radio, Spin, Table, Tag} from 'antd';
 import {
-    CodeOutlined,
     CodeTwoTone,
-    CodeFilled,
     DesktopOutlined,
     FileOutlined,
     LoadingOutlined,
