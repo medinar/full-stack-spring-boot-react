@@ -1,5 +1,6 @@
 package com.medinar.fullstackspringbootreact.student;
 
+import com.medinar.fullstackspringbootreact.student.exception.BadRequestException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -53,6 +59,31 @@ class StudentServiceTest {
         Student capturedStudent = studentArgumentCaptor.getValue();
 
         assertThat(capturedStudent).isEqualTo(student);
+    }
+
+    @Test
+    void willThrowWhenEmailIsTaken() {
+        // given
+        String email = "jamila@gmail.com";
+        Student student = new Student(
+                "Jamila",
+                email,
+                Gender.FEMALE
+        );
+
+        given(studentRepository.existsByEmail(anyString()))
+                .willReturn(true);
+
+        // when
+        // then
+        assertThatThrownBy(() -> underTest.addStudent(student))
+                .isInstanceOf(BadRequestException.class)
+                .hasMessageContaining(String.format(
+                        "Email `%s` already exist",
+                        student.getEmail()
+                ));
+
+        verify(studentRepository, never()).save(any());
     }
 
     @Test
