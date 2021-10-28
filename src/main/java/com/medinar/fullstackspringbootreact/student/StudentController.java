@@ -1,21 +1,42 @@
 package com.medinar.fullstackspringbootreact.student;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.medinar.fullstackspringbootreact.student.exception.BadRequestException;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
+import javax.validation.Valid;
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping(path = "api/v1/students")
 public class StudentController {
 
+    private final StudentService studentService;
+
     @GetMapping
     public List<Student> getAllStudents() {
-        return Arrays.asList(
-                new Student(1L, "Jamila", "jamila@medinar.com", Gender.FEMALE.name()),
-                new Student(1L, "Alex", "alex@medinar.com", Gender.FEMALE.name())
-        );
+        return studentService.getAllStudents();
     }
+
+    @GetMapping("/{studentId}")
+    public Student getStudentById(@PathVariable Long studentId) {
+        return studentService.getStudentById(studentId);
+    }
+
+    @PutMapping
+    public void updateStudent(@RequestBody Student student) {
+        studentService.updateStudent(student);
+    }
+
+    @PostMapping
+    public void addStudent(@Valid @RequestBody Student student) throws BadRequestException {
+        studentService.addStudent(student);
+    }
+
+    @DeleteMapping("/{studentId}")
+    public void deleteStudent(@PathVariable Long studentId) {
+        studentService.deleteStudent(studentId);
+    }
+
 }
