@@ -1,7 +1,21 @@
 import './App.css';
 import {useEffect, useState} from "react";
 import {deleteStudent, getAllStudents} from "./Client";
-import {Avatar, Badge, Breadcrumb, Button, Empty, Layout, Menu, Popconfirm, Radio, Spin, Table, Tag} from 'antd';
+import {
+    Avatar,
+    Badge,
+    Breadcrumb,
+    Button,
+    Divider,
+    Empty,
+    Layout,
+    Menu,
+    Popconfirm,
+    Radio,
+    Spin,
+    Table,
+    Tag
+} from 'antd';
 import {
     CodeTwoTone,
     DesktopOutlined,
@@ -10,7 +24,9 @@ import {
     PieChartOutlined,
     PlusCircleOutlined,
     TeamOutlined,
-    UserOutlined
+    UserOutlined,
+    LinkedinOutlined,
+    GithubOutlined
 } from '@ant-design/icons';
 import StudentDrawerForm from "./StudentDrawerForm";
 import {errorNotification, successNotification} from "./Notification";
@@ -209,7 +225,10 @@ function App() {
                 </div>
             </Content>
             <Footer style={{textAlign: 'center'}}>
-                <strong>by medinar <CodeTwoTone spin={true}/></strong> ©2021
+                <strong>by medinar <CodeTwoTone /></strong> ©2021
+                <Divider />
+                <a href="https://www.linkedin.com/in/rommel-medina-17bb9b30/"> <LinkedinOutlined style={{ fontSize: '24px', marginwidth: '10px',color: '#000' }}/>  </a>
+                <a href="https://github.com/medinar"> <GithubOutlined style={{ fontSize: '24px', color: '#000' }}/> </a>
             </Footer>
         </Layout>
     </Layout>;
