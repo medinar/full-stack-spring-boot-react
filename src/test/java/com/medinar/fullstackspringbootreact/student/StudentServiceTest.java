@@ -1,8 +1,8 @@
 package com.medinar.fullstackspringbootreact.student;
 
 import com.medinar.fullstackspringbootreact.student.exception.BadRequestException;
+import com.medinar.fullstackspringbootreact.student.exception.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -87,7 +87,33 @@ class StudentServiceTest {
     }
 
     @Test
-    @Disabled
-    void deleteStudent() {
+    void canDeleteStudent() {
+        // given
+        long studentId = 10;
+        given(studentRepository.existsById(studentId))
+                .willReturn(true);
+        // when
+        underTest.deleteStudent(studentId);
+
+        // then
+        verify(studentRepository).deleteById(studentId);
+    }
+
+    @Test
+    void willThrowWhenDeleteStudentNotFound() {
+        // given
+        long studentId = 10;
+        given(studentRepository.existsById(studentId))
+                .willReturn(false);
+        // when
+        // then
+        assertThatThrownBy(() -> underTest.deleteStudent(studentId))
+                .isInstanceOf(NotFoundException.class)
+                .hasMessageContaining(String.format(
+                        "Student with id %s does not exists",
+                        studentId
+                ));
+
+        verify(studentRepository, never()).deleteById(any());
     }
 }

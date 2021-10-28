@@ -19,16 +19,6 @@ public class StudentController {
         return studentService.getAllStudents();
     }
 
-    @GetMapping("/{studentId}")
-    public Student getStudentById(@PathVariable Long studentId) {
-        return studentService.getStudentById(studentId);
-    }
-
-    @PutMapping
-    public void updateStudent(@RequestBody Student student) {
-        studentService.updateStudent(student);
-    }
-
     @PostMapping
     public void addStudent(@Valid @RequestBody Student student) throws BadRequestException {
         studentService.addStudent(student);
