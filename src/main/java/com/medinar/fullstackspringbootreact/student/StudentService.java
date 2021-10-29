@@ -37,4 +37,14 @@ public class StudentService {
         studentRepository.deleteById(studentId);
     }
 
+    public void updateStudent(Student student) {
+        Boolean emailExists = studentRepository.existsByEmail(student.getEmail());
+        if (emailExists) {
+            throw new BadRequestException(String.format(
+                    "Email `%s` already exist",
+                    student.getEmail()
+            ));
+        }
+        studentRepository.save(student);
+    }
 }
