@@ -1,15 +1,38 @@
 import {Drawer, Input, Col, Select, Form, Row, Button, Spin} from 'antd';
 import {addNewStudent} from "./Client";
 import {LoadingOutlined} from "@ant-design/icons";
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {successNotification, errorNotification} from "./Notification";
 
 const {Option} = Select;
 
 const antIcon = <LoadingOutlined style={{fontSize: 24}} spin/>;
 
-function StudentDrawerForm({showDrawer, setShowDrawer, fetchStudents}) {
-    const onCLose = () => setShowDrawer(false);
+function StudentDrawerForm({showDrawer, setShowDrawer, fetchStudents, stud, setStud}) {
+    const [isEditMode, setEditMode] = useState(false);
+    const [drawerTitle, setDrawerTitle] = useState("");
+    console.log("isEditMode: " + isEditMode)
+    const [form] = Form.useForm();
+    useEffect(() => {
+        setEditMode(stud.id !== undefined);
+        setDrawerTitle(isEditMode ? "Update student" : "Create new student")
+        if (isEditMode) {
+            form.setFieldsValue({
+                name: stud.name,
+                email: stud.email,
+                gender: stud.gender
+            });
+        }
+    })
+
+    const onCLose = () => {
+        console.log("onClose triggered")
+        form.resetFields();
+        setEditMode(false);
+        setShowDrawer(false);
+        setStud([]);
+    };
+
     const [submitting, setSubmitting] = useState(false);
 
     const onFinish = student => {
@@ -44,7 +67,7 @@ function StudentDrawerForm({showDrawer, setShowDrawer, fetchStudents}) {
     };
 
     return <Drawer
-        title="Create new student"
+        title={drawerTitle}
         width={720}
         onClose={onCLose}
         visible={showDrawer}
@@ -61,10 +84,14 @@ function StudentDrawerForm({showDrawer, setShowDrawer, fetchStudents}) {
             </div>
         }
     >
-        <Form layout="vertical"
-              onFinishFailed={onFinishFailed}
-              onFinish={onFinish}
-              hideRequiredMark>
+        <Form
+            form={form}
+            layout="vertical"
+            onFinishFailed={onFinishFailed}
+            onFinish={onFinish}
+            hideRequiredMark
+            // initialValues={{ name: stud.name, email: stud.email, gender: stud.gender }}
+        >
             <Row gutter={16}>
                 <Col span={12}>
                     <Form.Item
@@ -72,7 +99,7 @@ function StudentDrawerForm({showDrawer, setShowDrawer, fetchStudents}) {
                         label="Name"
                         rules={[{required: true, message: 'Please enter student name'}]}
                     >
-                        <Input placeholder="Please enter student name"/>
+                        <Input placeholder="Please enter student name" />
                     </Form.Item>
                 </Col>
                 <Col span={12}>

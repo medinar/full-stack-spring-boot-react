@@ -111,3 +111,25 @@ jobs:
           ./mvnw --no-transfer-progress clean package -P build-frontend
 ```
 
+
+
+## AWS CLI
+
+**To terminate an environment**
+
+- Run the following command.
+
+```shell
+aws elasticbeanstalk terminate-environment --environment-name Fullstackspringbootreact-env
+```
+
+
+
+To stop a DB instance by using the AWS CLI, call the [stop-db-instance](https://docs.aws.amazon.com/cli/latest/reference/rds/stop-db-instance.html) command with the following option:
+
+```shell
+aws rds stop-db-instance --db-instance-identifier aa7owmyzt7q7ch
+```
+
+[DB-INSTANCE](https://ca-central-1.console.aws.amazon.com/rds/home?region=ca-central-1#database:id=aa7owmyzt7q7ch;is-cluster=false)
+

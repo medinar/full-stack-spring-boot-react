@@ -66,7 +66,15 @@ const removeStudent = (studentId, callback) => {
             })
         })
 }
-const columns = fetchStudents => [
+
+const updateStudent = (estudyante, setShowDrawer, setStud, callback) => {
+    console.log(estudyante);
+    setStud(estudyante)
+    setShowDrawer(true);
+    callback();
+}
+
+const columns = (fetchStudents, setShowDrawer, setStud) => [
     {
         title: '',
         dataIndex: 'avatar',
@@ -106,7 +114,9 @@ const columns = fetchStudents => [
                     cancelText='No'>
                     <Radio.Button value="delete">Delete</Radio.Button>
                 </Popconfirm>
-                <Radio.Button onClick={() => alert("TODO: Implement edit student")} value="edit">Edit</Radio.Button>
+                <Radio.Button onClick={() => {
+                    updateStudent(student, setShowDrawer, setStud, fetchStudents);
+                }} value="edit">Edit</Radio.Button>
             </Radio.Group>
     }
 ];
@@ -118,6 +128,7 @@ function App() {
     const [collapsed, setCollapsed] = useState(false);
     const [fetching, setFetching] = useState(true);
     const [showDrawer, setShowDrawer] = useState(false);
+    const [stud, setStud] = useState([]);
 
     const fetchStudents = () =>
         getAllStudents()
@@ -156,6 +167,8 @@ function App() {
                     showDrawer={showDrawer}
                     setShowDrawer={setShowDrawer}
                     fetchStudents={fetchStudents}
+                    stud={stud}
+                    setStud={setStud}
                 />
                 <Empty/>
             </>
@@ -165,10 +178,12 @@ function App() {
                 showDrawer={showDrawer}
                 setShowDrawer={setShowDrawer}
                 fetchStudents={fetchStudents}
+                stud={stud}
+                setStud={setStud}
             />
             <Table
                 dataSource={students}
-                columns={columns(fetchStudents)}
+                columns={columns(fetchStudents, setShowDrawer, setStud)}
                 bordered
                 title={() =>
                     <>
@@ -218,7 +233,7 @@ function App() {
             <Content style={{margin: '0 16px'}}>
                 <Breadcrumb style={{margin: '16px 0'}}>
                     <Breadcrumb.Item>User</Breadcrumb.Item>
-                    <Breadcrumb.Item>Bill</Breadcrumb.Item>
+                    <Breadcrumb.Item>Rommel</Breadcrumb.Item>
                 </Breadcrumb>
                 <div className="site-layout-background" style={{padding: 24, minHeight: 360}}>
                     {renderStudents()}
