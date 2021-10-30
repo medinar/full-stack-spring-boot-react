@@ -67,9 +67,9 @@ const removeStudent = (studentId, callback) => {
         })
 }
 
-const updateStudent = (estudyante, setShowDrawer, setStud, callback) => {
-    console.log(estudyante);
-    setStud(estudyante)
+const updateStudent = (student, setShowDrawer, setStud, callback) => {
+    console.log(student);
+    setStud(student)
     setShowDrawer(true);
     callback();
 }
@@ -128,7 +128,7 @@ function App() {
     const [collapsed, setCollapsed] = useState(false);
     const [fetching, setFetching] = useState(true);
     const [showDrawer, setShowDrawer] = useState(false);
-    const [stud, setStud] = useState([]);
+    const [student, setStudent] = useState([]);
 
     const fetchStudents = () =>
         getAllStudents()
@@ -167,8 +167,8 @@ function App() {
                     showDrawer={showDrawer}
                     setShowDrawer={setShowDrawer}
                     fetchStudents={fetchStudents}
-                    stud={stud}
-                    setStud={setStud}
+                    student={student}
+                    setStudent={setStudent}
                 />
                 <Empty/>
             </>
@@ -178,12 +178,12 @@ function App() {
                 showDrawer={showDrawer}
                 setShowDrawer={setShowDrawer}
                 fetchStudents={fetchStudents}
-                stud={stud}
-                setStud={setStud}
+                student={student}
+                setStudent={setStudent}
             />
             <Table
                 dataSource={students}
-                columns={columns(fetchStudents, setShowDrawer, setStud)}
+                columns={columns(fetchStudents, setShowDrawer, setStudent)}
                 bordered
                 title={() =>
                     <>
