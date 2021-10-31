@@ -17,7 +17,7 @@ import {
     Tag
 } from 'antd';
 import {
-    CodeTwoTone,
+    CodeOutlined,
     DesktopOutlined,
     FileOutlined,
     LoadingOutlined,
@@ -81,28 +81,28 @@ const columns = (fetchStudents, setShowDrawer, setStud) => [
         key: 'avatar',
         render: (text, student) => <TheAvatar name={student.name}/>
     },
+    // {
+    //     title: 'Id',
+    //     dataIndex: 'id',
+    //     key: 'id',
+    // },
     {
-        title: 'Id',
-        dataIndex: 'id',
-        key: 'id',
-    },
-    {
-        title: 'Name',
+        title: 'NAME',
         dataIndex: 'name',
         key: 'name',
     },
     {
-        title: 'Email',
+        title: 'EMAIL',
         dataIndex: 'email',
         key: 'email',
     },
     {
-        title: 'Gender',
+        title: 'GENDER',
         dataIndex: 'gender',
         key: 'gender',
     },
     {
-        title: 'Actions',
+        title: 'ACTIONS',
         key: 'actions',
         render: (text, student) =>
             <Radio.Group>
@@ -215,13 +215,14 @@ function App() {
                     Option 2
                 </Menu.Item>
                 <SubMenu key="sub1" icon={<UserOutlined/>} title="User">
-                    <Menu.Item key="3">Tom</Menu.Item>
-                    <Menu.Item key="4">Bill</Menu.Item>
-                    <Menu.Item key="5">Alex</Menu.Item>
+                    <Menu.Item key="3">Rommel</Menu.Item>
+                    <Menu.Item key="4">Tom</Menu.Item>
+                    <Menu.Item key="5">Bill</Menu.Item>
+                    <Menu.Item key="6">Alex</Menu.Item>
                 </SubMenu>
                 <SubMenu key="sub2" icon={<TeamOutlined/>} title="Team">
-                    <Menu.Item key="6">Team 1</Menu.Item>
-                    <Menu.Item key="8">Team 2</Menu.Item>
+                    <Menu.Item key="7">Admin</Menu.Item>
+                    <Menu.Item key="8">Registrar</Menu.Item>
                 </SubMenu>
                 <Menu.Item key="9" icon={<FileOutlined/>}>
                     Files
@@ -240,19 +241,21 @@ function App() {
                 </div>
             </Content>
             <Footer style={{textAlign: 'center'}}>
-                <strong>by medinar <CodeTwoTone /></strong> ©2021
+                <strong>by medinar <CodeOutlined style={{ fontSize: '18px', color: '#000' }}/></strong> ©2021
                 <Divider />
-                <a
-                    href="https://www.linkedin.com/in/rommel-medina-17bb9b30/"> <LinkedinOutlined
-                    rel="noopener noreferrer"
-                    target="_blank"
-                    style={{ fontSize: '24px', marginwidth: '10px',color: '#000' }}/>
+                <a href="https://www.linkedin.com/in/rommel-medina-17bb9b30/"
+                   target="_blank"
+                   rel="noreferrer noopener"
+                   style={{margin: '5px'}}
+                >
+                     <LinkedinOutlined style={{ fontSize: '24px', marginwidth: '10px',color: '#000' }}/>
                 </a>
-                <a
-                    href="https://github.com/medinar"> <GithubOutlined
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ fontSize: '24px', color: '#000' }}/>
+                <a href="https://github.com/medinar"
+                   target="_blank"
+                   rel="noreferrer noopener"
+                   style={{margin: '5px'}}
+                >
+                     <GithubOutlined style={{ fontSize: '24px', color: '#000' }}/>
                 </a>
             </Footer>
         </Layout>
