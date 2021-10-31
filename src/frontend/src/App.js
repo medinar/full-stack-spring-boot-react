@@ -200,7 +200,7 @@ function App() {
                 pagination={{pageSize: 50}}
                 scroll={{y: 500}}
                 rowKey={(student) => student.id}
-            />;
+            />
         </>
     }
     return <Layout style={{minHeight: '100vh'}}>
@@ -256,7 +256,7 @@ function App() {
                 </a>
             </Footer>
         </Layout>
-    </Layout>;
+    </Layout>
 }
 
 export default App;
