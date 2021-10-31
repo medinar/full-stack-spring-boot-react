@@ -116,4 +116,29 @@ class StudentServiceTest {
 
         verify(studentRepository, never()).deleteById(any());
     }
+
+    @Test
+    void canUpdateStudent() {
+        // given
+        String email = "jamila@gmail.com";
+        Student student = new Student(
+                "Jamila",
+                email,
+                Gender.FEMALE
+        );
+
+        // when
+        underTest.updateStudent(student);
+
+        // then
+        ArgumentCaptor<Student> studentArgumentCaptor =
+                ArgumentCaptor.forClass(Student.class);
+
+        verify(studentRepository).save(studentArgumentCaptor.capture());
+
+        Student capturedStudent = studentArgumentCaptor.getValue();
+
+        assertThat(capturedStudent).isEqualTo(student);
+    }
+
 }
