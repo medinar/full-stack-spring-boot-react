@@ -14,7 +14,6 @@ import {
     Radio,
     Spin,
     Table,
-    Tag
 } from 'antd';
 import {
     CodeOutlined,
@@ -31,7 +30,7 @@ import {
 import StudentDrawerForm from "./StudentDrawerForm";
 import {errorNotification, successNotification} from "./Notification";
 
-const {Header, Content, Footer, Sider} = Layout;
+const {Content, Footer, Sider} = Layout;
 const {SubMenu} = Menu;
 
 const TheAvatar = ({name}) => {
