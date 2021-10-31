@@ -24,6 +24,11 @@ public class StudentController {
         studentService.addStudent(student);
     }
 
+    @PutMapping
+    public void updateStudent(@Valid @RequestBody Student student) throws BadRequestException {
+        studentService.updateStudent(student);
+    }
+
     @DeleteMapping("/{studentId}")
     public void deleteStudent(@PathVariable Long studentId) {
         studentService.deleteStudent(studentId);
