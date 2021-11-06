@@ -230,6 +230,7 @@ function App() {
                         <div className="site-page-header-ghost-wrapper">
                             <PageHeader
                                 ghost={false}
+                                avatar={{ src: 'https://user-images.githubusercontent.com/25921121/140602454-7f800b31-67d2-48e8-9f75-aeef5a4e9095.png' }}
                                 title="ACME"
                                 subTitle="Student Management System"
                             >
