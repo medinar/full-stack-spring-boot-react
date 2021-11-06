@@ -1,7 +1,8 @@
 # ACME Student Management System
 
-This project is about creating a full stack CRUD application with CI/CD using Github Actions and features the use of the most popular cloud platform today, AWS.
+This project is about creating a full stack CRUD application with CI/CD using Github Actions and features the use of the most popular cloud platform today, AWS. (Work in progress)
 
+### Screenshots
 Table display of the students added to the system
 ![Table display of the students added to the system](https://user-images.githubusercontent.com/25921121/140591277-3f7ae270-ae0c-4ba2-92aa-7668678f6f9c.png) 
 
@@ -20,6 +21,14 @@ Delete student confirmation
 
 Student deleted notification
 ![Student deleted notification](https://user-images.githubusercontent.com/25921121/140593626-1f4b317d-4966-468a-b871-0c80352a4c19.png) 
+
+### Diagrams
+Diagram below shows Maven bundles the front-end and backend application then creates a docker image. The Jib Maven plugin then either builds a local docker image or builds and pushes docker image to docker hub. A docker-compose.yml file contains the reference to the image in the docker hub to be deployed to the AWS.
+![fullstack-spring-react-1](https://user-images.githubusercontent.com/25921121/140598305-2491aab0-de17-405b-9756-d39a7050e177.jpg)
+
+Diagram below shows the docker image uploaded to AWS Elastic Beanstalk Environment. It is now managed inside the ECS Cluster and protected by SG (Security Group). The application inside the EC2 instance has permission to access the AWS RDS PostgreSQL since they reside in the same environment. To grant our local application to access the AWS RDS, an SG must be defined. 
+![fullstack-spring-react-2](https://user-images.githubusercontent.com/25921121/140598482-d7254220-97db-42e7-84e1-cca79dd341d6.jpg)
+
 
 [top :arrow_up:](https://github.com/medinar/full-stack-spring-boot-react#acme-student-management-system)
 
