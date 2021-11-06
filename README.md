@@ -1,18 +1,37 @@
-# Fullstack Spring Boot React Application
+## Fullstack Spring Boot React Application
 
-## Run db container in docker
+![Screen Shot 2021-11-05 at 5 20 40 PM](https://user-images.githubusercontent.com/25921121/140591277-3f7ae270-ae0c-4ba2-92aa-7668678f6f9c.png)
+
+This project is about creating a full stack CRUD application with CI/CD using Github Actions and wiht the integration of the most popular cloud platform, AWS.
+
+### Built With
 
 
+![Spring Boot](https://user-images.githubusercontent.com/25921121/140591445-e4d41b4a-ad9e-471d-863b-8587f12a261d.png) 
+![Java](https://user-images.githubusercontent.com/25921121/140591466-06a89bb9-d54b-476f-9148-1d08714451e2.png)
+![React](https://user-images.githubusercontent.com/25921121/140591472-90bbacde-594e-4b37-bb98-2331e0da2471.png)
+![PostgreSQL](https://user-images.githubusercontent.com/25921121/140591539-21d014b2-fa93-41c8-bb3e-441df9a6ec60.png)
+![Docker](https://user-images.githubusercontent.com/25921121/140591486-d7bf8ca8-6cc2-4f66-8afd-ff5c12cacdf6.png)
+![Github](https://user-images.githubusercontent.com/25921121/140591506-7f167d49-19a4-44df-9d0b-cce6e0364270.png)
+![AWS](https://user-images.githubusercontent.com/25921121/140591520-d312898c-250c-443f-a9d4-4920288a3b69.png)
 
-## Running the docker image
+## Getting Started
+
+### Prerequisites
+
+### Installation
+
+## Usage
+
+### Run db container in docker
+
+### Running the docker image
 
 ````shell
 docker run --rm -p 8080:8080 medinar/fullstack-spring-boot-react
 ````
 
-
-
-## Running the database instance of postgres using docker command
+### Running the database instance of postgres using docker command
 
 ```shell
 ❯ docker run -it --rm --network=db postgres:alpine psql -h db -U postgres
@@ -22,8 +41,6 @@ Type "help" for help.
 
 postgres=#
 ```
-
-
 
 ```shell
 docker run -it --rm --rm postgres:alpine psql -h aa7owmyzt7q7ch.corewigv46z6.ca-central-1.rds.amazonaws.com -U medinar -d postgres
@@ -51,14 +68,10 @@ medinardb=> \d
 medinardb=> 
 ```
 
-
-
 ```shell
 docker loginAuthenticating with existing credentials...
 Login Succeeded	
 ```
-
-
 
 Mac
 
@@ -111,19 +124,15 @@ jobs:
           ./mvnw --no-transfer-progress clean package -P build-frontend
 ```
 
+### Terminating the Elastic Beanstalk environment using the AWS CLI
 
-
-## AWS CLI
-
-**To terminate an environment**
-
-- Run the following command.
+Run the following command.
 
 ```shell
 aws elasticbeanstalk terminate-environment --environment-name Fullstackspringbootreact-env
 ```
 
-
+### Terminating the RDS database instance via the AWS CLI
 
 To stop a DB instance by using the AWS CLI, call the [stop-db-instance](https://docs.aws.amazon.com/cli/latest/reference/rds/stop-db-instance.html) command with the following option:
 
@@ -132,4 +141,20 @@ aws rds stop-db-instance --db-instance-identifier aa7owmyzt7q7ch
 ```
 
 [DB-INSTANCE](https://ca-central-1.console.aws.amazon.com/rds/home?region=ca-central-1#database:id=aa7owmyzt7q7ch;is-cluster=false)
+
+## 
+
+## Roadmap
+
+## Contributing
+
+## License
+
+## Contact
+
+## Acknowledgments
+
+
+
+
 
