@@ -1,12 +1,29 @@
-## Fullstack Spring Boot React Application
+# ACME Student Management System
 
-![Screen Shot 2021-11-05 at 5 20 40 PM](https://user-images.githubusercontent.com/25921121/140591277-3f7ae270-ae0c-4ba2-92aa-7668678f6f9c.png)
+This project is about creating a full stack CRUD application with CI/CD using Github Actions and features the use of the most popular cloud platform today, AWS.
 
-This project is about creating a full stack CRUD application with CI/CD using Github Actions and wiht the integration of the most popular cloud platform, AWS.
+Table display of the students added to the system
+![Table display of the students added to the system](https://user-images.githubusercontent.com/25921121/140591277-3f7ae270-ae0c-4ba2-92aa-7668678f6f9c.png) 
+
+
+Create new student form
+![Create new student form](https://user-images.githubusercontent.com/25921121/140593836-96d40bd9-0af0-48d4-a99e-dd90a612b575.png)
+
+
+Update student form
+![Update student form](https://user-images.githubusercontent.com/25921121/140593614-6b972664-b850-456c-8677-c8cd30bf9ed0.png) 
+
+
+Delete student confirmation
+![Delete student confirmation](https://user-images.githubusercontent.com/25921121/140593624-749b4b39-3f4f-4def-a770-91bb068b1084.png) 
+
+
+Student deleted notification
+![Student deleted notification](https://user-images.githubusercontent.com/25921121/140593626-1f4b317d-4966-468a-b871-0c80352a4c19.png) 
+
+[top :arrow_up:](https://github.com/medinar/full-stack-spring-boot-react#acme-student-management-system)
 
 ### Built With
-
-
 ![Spring Boot](https://user-images.githubusercontent.com/25921121/140591445-e4d41b4a-ad9e-471d-863b-8587f12a261d.png) 
 ![Java](https://user-images.githubusercontent.com/25921121/140591466-06a89bb9-d54b-476f-9148-1d08714451e2.png)
 ![React](https://user-images.githubusercontent.com/25921121/140591472-90bbacde-594e-4b37-bb98-2331e0da2471.png)
@@ -15,11 +32,17 @@ This project is about creating a full stack CRUD application with CI/CD using Gi
 ![Github](https://user-images.githubusercontent.com/25921121/140591506-7f167d49-19a4-44df-9d0b-cce6e0364270.png)
 ![AWS](https://user-images.githubusercontent.com/25921121/140591520-d312898c-250c-443f-a9d4-4920288a3b69.png)
 
+[top :arrow_up:](https://github.com/medinar/full-stack-spring-boot-react#acme-student-management-system)
+
 ## Getting Started
 
 ### Prerequisites
 
+[top :arrow_up:](https://github.com/medinar/full-stack-spring-boot-react#acme-student-management-system)
+
 ### Installation
+
+[top :arrow_up:](https://github.com/medinar/full-stack-spring-boot-react#acme-student-management-system)
 
 ## Usage
 
@@ -142,19 +165,46 @@ aws rds stop-db-instance --db-instance-identifier aa7owmyzt7q7ch
 
 [DB-INSTANCE](https://ca-central-1.console.aws.amazon.com/rds/home?region=ca-central-1#database:id=aa7owmyzt7q7ch;is-cluster=false)
 
-## 
+[top :arrow_up:](https://github.com/medinar/full-stack-spring-boot-react#acme-student-management-system)
 
 ## Roadmap
+- [x] Implement Update Student
+- [ ] Update implementation of Update Student
+- [ ] Implement uploading of profile picture
+- [ ] Planning to turn this into a Player Management System (Sports :bouncing_ball_man:) 
+
+[top :arrow_up:](https://github.com/medinar/full-stack-spring-boot-react#acme-student-management-system)
 
 ## Contributing
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement". Don't forget to give the project a star! Thanks again!
+
+Fork the Project
+Create your Feature Branch (git checkout -b feature/AmazingFeature)
+Commit your Changes (git commit -m 'Add some AmazingFeature')
+Push to the Branch (git push origin feature/AmazingFeature)
+Open a Pull Request
 
 ## License
+Distributed under the MIT License. See LICENSE.txt for more information.
 
 ## Contact
+Rommel Medina - rommel.d.medina@gmail.com
+
+Project Link: [ACME - Student Management System](http://fullstackspringbootreact-env.eba-mrbwn2uj.ca-central-1.elasticbeanstalk.com/)
 
 ## Acknowledgments
 
-
-
-
-
+- Hat tip to anyone whose code was used
+- Inspiration
+- etc.
+- Resources:
+  - [Java](https://www.java.com/en/)
+  - [Spring Boot](https://spring.io/projects/spring-boot)
+  - [React](https://reactjs.org/)
+  - [Ant Design](https://ant.design/)
+  - [Docker](https://hub.docker.com/)
+  - [AWS](https://aws.amazon.com/)
+ 
+[top :arrow_up:](https://github.com/medinar/full-stack-spring-boot-react#acme-student-management-system)
