@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   backend:
-    image: "medinar/fullstack-spring-boot-react:6.11.2021.5.54.39"
+    image: "medinar/fullstack-spring-boot-react:6.11.2021.9.25.19"
     ports:
       - "80:8080"
     restart: "always"
