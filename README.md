@@ -46,6 +46,15 @@ Diagram below shows the docker image uploaded to AWS Elastic Beanstalk Environme
 ## Getting Started
 
 ### Prerequisites
+What things you need to install the software and how to install them
+
+```
+[Java 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+[Docker](https://www.docker.com/get-started)
+[Docker PostgreSQL Image](https://hub.docker.com/_/postgres)
+[Intellij](https://www.jetbrains.com/idea/)
+[AWS](https://portal.aws.amazon.com/billing/signup#/start)
+```
 
 [top :arrow_up:](https://github.com/medinar/full-stack-spring-boot-react#acme-student-management-system)
 
@@ -55,107 +64,85 @@ Diagram below shows the docker image uploaded to AWS Elastic Beanstalk Environme
 
 ## Usage
 
-### Run db container in docker
+### Connecting to Docker PostgreSQL
 
-### Running the docker image
+1. Create docker network
 
-````shell
-docker run --rm -p 8080:8080 medinar/fullstack-spring-boot-react
-````
+   ```shell
+   ❯ docker network create db                                               
+   92cc19cc6ef7f64a6387ad0465dc133eefe1c425171c17bb418503a9e5fbcc58
+                                                                                                                                                                 
+   full-stack-spring-boot-react git/edit-favicon*  
+   ❯ 
+   ```
 
-### Running the database instance of postgres using docker command
+2. Create a folder to mount `/var/lib/postgresql/data` and `cd` to that folder
 
-```shell
-❯ docker run -it --rm --network=db postgres:alpine psql -h db -U postgres
-Password for user postgres: ********
-psql (14.0)
-Type "help" for help.
+   Example: db-data
 
-postgres=#
-```
+   ```shell
+   full-stack-spring-boot-react  
+   ❯ cd ~/Desktop/db-data               
+                                                                                                                                                                 
+   ```
 
-```shell
-docker run -it --rm --rm postgres:alpine psql -h aa7owmyzt7q7ch.corewigv46z6.ca-central-1.rds.amazonaws.com -U medinar -d postgres
-```
+3. Run the command below.
 
-```shell
-medinar=> create database medinardb
-medinar-> ;
-CREATE DATABASE
-medinar=> \c medinardb
-psql (14.0, server 12.5)
-SSL connection (protocol: TLSv1.2, cipher: ECDHE-RSA-AES256-GCM-SHA384, bits: 256, compression: off)
-You are now connected to database "medinardb" as user "medinar".
-```
+   ```shell
+   ~/Desktop/db-data   
+   ❯ docker run --name db -p 5432:5432 --network=db -v "$PWD:/var/lib/postgresql/data" -e POSTGRES_PASSWORD=password -d postgres:alpine
+   b59cfc5db67e861bae4279487e5aea6ff6860915d7b33b78a944903bb53f7d7f                                                                                               
+   
+   ~/Desktop/db-data   
+   ❯
+   ```
 
-```shell
-medinardb=> \d
-               List of relations
- Schema |       Name       |   Type   |  Owner  
---------+------------------+----------+---------
- public | student          | table    | medinar
- public | student_sequence | sequence | medinar
-(2 rows)
+4. Check if the container is running
 
-medinardb=> 
-```
+   ```shell
+   ~/Desktop/db-data   
+   ❯ docker ps                                                                                                                         
+   CONTAINER ID   IMAGE             COMMAND                  CREATED          STATUS          PORTS                    NAMES
+   b59cfc5db67e   postgres:alpine   "docker-entrypoint.s…"   10 minutes ago   Up 10 minutes   0.0.0.0:5432->5432/tcp   db
+                                                                                                                                                                 
+   ~/Desktop/db-data   
+   ❯
+   ```
 
-```shell
-docker loginAuthenticating with existing credentials...
-Login Succeeded	
-```
+5. Connecting to the DB using PSQL Container
 
-Mac
-
-```shell
-./mvnw clean install -P build-frontend -P jib-push-to-dockerhub -Dapp.image.tag=3
-```
-
-Windows
-
-```shell
-mvnw clean install -P build-frontend -P jib-push-to-dockerhub -Dapp.image.tag=3
-```
-
-```
-name: CI
-
-on:
-  pull_request:
-    branches: [ main ]
-
-  workflow_dispatch:
-
-env:
-  POSTGRESQL_VERSION: 14.0
-  POSTGRESQL_DB: medinardb
-  POSTGRESQL_USER: postgres
-  POSTGRESQL_PASSWORD: password
-  JAVA_VERSION: 1.17
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:14.0
-        env:
-          POSTGRES_DB: ${{ env.POSTGRESQL_DB }}
-          POSTGRES_USER: ${{ env.POSTGRESQL_USER }}
-          POSTGRES_PASSWORD: ${{ env.POSTGRESQL_PASSWORD }}
-        ports:
-          - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1.4.3
-        with:
-          java-version: ${{ env.JAVA_VERSION }}
-      - name: Maven Clean Package
-        run: |
-          ./mvnw --no-transfer-progress clean package -P build-frontend
-```
-
+   ```shell
+   ~/Desktop/db-data   
+   ❯ docker run -it --rm --network=db postgres:alpine psql -h db -U postgres
+   Password for user postgres: 
+   psql (14.0)
+   Type "help" for help.
+   
+   postgres=# \l
+                                    List of databases
+      Name    |  Owner   | Encoding |  Collate   |   Ctype    |   Access privileges   
+   -----------+----------+----------+------------+------------+-----------------------
+    medinardb | postgres | UTF8     | en_US.utf8 | en_US.utf8 | 
+    postgres  | postgres | UTF8     | en_US.utf8 | en_US.utf8 | 
+    template0 | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +
+              |          |          |            |            | postgres=CTc/postgres
+    template1 | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +
+              |          |          |            |            | postgres=CTc/postgres
+   (4 rows)
+   
+   postgres=# \c medinardb
+   You are now connected to database "medinardb" as user "postgres".
+   medinardb=# \d 
+                   List of relations
+    Schema |       Name       |   Type   |  Owner   
+   --------+------------------+----------+----------
+    public | student          | table    | postgres
+    public | student_sequence | sequence | postgres
+   (2 rows)
+   
+   medinardb=# 
+   ```
+   
 ### Terminating the Elastic Beanstalk environment using the AWS CLI
 
 Run the following command.
@@ -211,9 +198,12 @@ Project Link: [ACME - Student Management System](http://fullstackspringbootreact
 - Resources:
   - [Java](https://www.java.com/en/)
   - [Spring Boot](https://spring.io/projects/spring-boot)
+  - [Spring Data JPA](https://spring.io/projects/spring-data-jpa)
   - [React](https://reactjs.org/)
   - [Ant Design](https://ant.design/)
+  - [Jib Maven Plugin](https://github.com/GoogleContainerTools/jib)
   - [Docker](https://hub.docker.com/)
+  - [Docker PostgreSQL](https://hub.docker.com/_/postgres)
   - [AWS](https://aws.amazon.com/)
  
 [top :arrow_up:](https://github.com/medinar/full-stack-spring-boot-react#acme-student-management-system)
